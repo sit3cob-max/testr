@@ -1,33 +1,37 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(false)
+    }
+
     stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('AI Code Review') {
+        stage('AI Changed-Code Review') {
             steps {
                 bat '''
-                python jenkins\\ai_code_reviewer_v1.py ^
+                python jenkins\\ai_code_reviewer_v2.py ^
                   --workspace . ^
-                  --config jenkins\\ai_code_reviewer_config.json ^
+                  --config jenkins\\ai_code_reviewer_v2_config.json ^
                   --fail-build false
                 '''
             }
         }
-
     }
 
     post {
         always {
             archiveArtifacts(
-                artifacts: 'ai_code_review_report.html,ai_code_review_report.json',
+                artifacts: 'ai_code_review_report.html,ai_code_review_report.json,ai_code_review_history.json',
                 allowEmptyArchive: true
             )
+            publishHTML(target: [
+                allowMissing: true,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: '.',
+                reportFiles: 'ai_code_review_report.html',
+                reportName: 'AI Changed-Code Review'
+            ])
         }
     }
 }
