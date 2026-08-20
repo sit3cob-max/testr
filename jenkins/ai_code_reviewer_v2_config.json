@@ -1,0 +1,25 @@
+{
+  "thresholds": {
+    "good_score": 85,
+    "warning_score": 60,
+    "max_critical": 0,
+    "max_high": 5
+  },
+  "scan": {
+    "include_extensions": [".py", ".java", ".js", ".ts", ".tsx", ".jsx", ".c", ".cpp", ".h", ".hpp", ".cs", ".go", ".rs", ".sh", ".bat", ".ps1", ".yaml", ".yml", ".gradle", ".groovy"],
+    "include_names": ["Dockerfile", "Jenkinsfile"],
+    "exclude_paths": [".git/", ".jenkins/", "node_modules/", "dist/", "build/", "target/", "venv/", ".venv/", "__pycache__/", ".pytest_cache/", ".idea/", ".vscode/", "jenkins/ai_code_reviewer_v1.py", "jenkins/ai_code_reviewer_v2.py", "ai_code_reviewer_v1.py", "ai_code_reviewer_v2.py", "ai_code_review_report.html", "ai_code_review_report.json", "ai_code_review_history.json"],
+    "max_file_size_kb": 768,
+    "context_lines": 3
+  },
+  "mcp": {
+    "enabled": false,
+    "server_url": "",
+    "token": "",
+    "tool_name": "review_code_diff"
+  },
+  "history": {
+    "file": "ai_code_review_history.json",
+    "max_entries": 30
+  }
+}
