@@ -1,50 +1,51 @@
 pipeline {
-  agent any
+    agent any
 
-  options {
-    skipDefaultCheckout(false)
-    disableConcurrentBuilds()
-  }
-
-  stages {
-
-    stage('Analyze Changed Code') {
-      steps {
-        bat '''
-        python jenkins\\reviewer.py ^
-          --workspace . ^
-          --output review-output\\review.json
-        '''
-      }
+    options {
+        skipDefaultCheckout(false)
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '30'))
     }
 
-    stage('Build Dashboard') {
-      steps {
-        bat '''
-        python review-ui\\build_dashboard.py ^
-          --input review-output\\review.json ^
-          --output review-ui\\index.html
-        '''
-      }
+    stages {
+
+        stage('Analyze Changed Code') {
+            steps {
+                bat '''
+                python jenkins\\reviewer.py ^
+                  --workspace . ^
+                  --output review-output\\review.json
+                '''
+            }
+        }
+
+        stage('Build Dashboard') {
+            steps {
+                bat '''
+                python review-ui\\build_dashboard.py ^
+                  --input review-output\\review.json ^
+                  --output review-ui\\index.html
+                '''
+            }
+        }
     }
-  }
 
-  post {
-    always {
+    post {
+        always {
 
-      archiveArtifacts(
-        artifacts: 'review-ui/**,review-output/**',
-        allowEmptyArchive: true
-      )
+            archiveArtifacts(
+                artifacts: 'review-ui/**,review-output/**',
+                allowEmptyArchive: true
+            )
 
-      publishHTML(target: [
-        allowMissing: false,
-        alwaysLinkToLastBuild: true,
-        keepAll: true,
-        reportDir: 'review-ui',
-        reportFiles: 'index.html',
-        reportName: 'Code Review Dashboard'
-      ])
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'review-ui',
+                reportFiles: 'index.html',
+                reportName: 'Dashboard'
+            ])
+        }
     }
-  }
 }
