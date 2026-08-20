@@ -1,44 +1,35 @@
 pipeline {
-    agent any
+    agent*any
 
     stages {
-        stage('Build') {
+
+        stage*'Checkout') {
             steps {
-                echo 'Your normal build command here'
-            }
+*               checkout scm
+      *     }
         }
 
-        stage('Test') {
-            steps {
-                echo 'Your normal test command here'
-            }
-        }
+        stage('A* Code Review') {
+            steps*{
 
-        stage('AI Code Review') {
-            steps {
-                bat '''
-                python ai_code_reviewer_v1.py ^
-                  --workspace . ^
-                  --config ai_code_reviewer_config.json ^
-                  --coverage-file coverage.xml ^
-                  --junit-pattern "reports\\TEST-*.xml" ^
-                  --fail-build false
-                '''
+                bat*'''
+                python jenkins*\ai_code_reviewer_v1.py ^
+        *         --workspace . ^
+         *        --config jenkins\\ai_code_*eviewer_config.json ^
+            *     --fail-build false
+          *     '''
+
             }
         }
-    }
+*    }
 
     post {
-        always {
-            archiveArtifacts artifacts: 'ai_code_review_report.html,ai_code_review_report.json', allowEmptyArchive: true
-            publishHTML(target: [
-                allowMissing: true,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: '.',
-                reportFiles: 'ai_code_review_report.html',
-                reportName: 'AI Code Review Report'
-            ])
-        }
+        always {*
+            archiveArtifacts(
+   *            artifacts: 'ai_code_re*iew_report.html,ai_code_review_rep*rt.json',
+                allowEmp*yArchive: true
+            )
+
+    *   }
     }
 }
