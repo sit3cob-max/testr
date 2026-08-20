@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    options {
+        skipDefaultCheckout(false)
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '30'))
+    }
+    stages {
+        stage('Changed-Code Review') {
+            steps {
+                bat '''
+                python jenkins\\ai_code_reviewer_v3.py ^
+                  --workspace . ^
+                  --config jenkins\\ai_code_reviewer_v3_config.json ^
+                  --output review-output ^
+                  --fail-build false
+                '''
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'review-output/**,ai_code_review_history.json', allowEmptyArchive: true, fingerprint: true
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'review-output',
+                reportFiles: 'index.html',
+                reportName: 'Code Review',
+                reportTitles: 'Changed-Code Quality Report'
+            ])
+        }
+    }
+}

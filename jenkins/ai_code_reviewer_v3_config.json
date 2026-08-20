@@ -1,0 +1,9 @@
+{
+  "thresholds": {"good": 85, "warning": 60, "max_critical": 0, "max_high": 5},
+  "scan": {
+    "extensions": [".py", ".java", ".js", ".ts", ".tsx", ".jsx", ".c", ".cpp", ".h", ".hpp", ".cs", ".go", ".rs", ".sh", ".ps1", ".yaml", ".yml", ".gradle", ".groovy"],
+    "names": ["Dockerfile", "Jenkinsfile"],
+    "exclude": [".git/", "node_modules/", "dist/", "build/", "target/", "venv/", ".venv/", "__pycache__/", "review-output/", "jenkins/ai_code_reviewer_v1.py", "jenkins/ai_code_reviewer_v2.py", "jenkins/ai_code_reviewer_v3.py", "ai_code_review_history.json"]
+  },
+  "history": {"file": "ai_code_review_history.json", "max": 30}
+}
