@@ -1,35 +1,33 @@
 pipeline {
-    agent*any
+    agent any
 
     stages {
 
-        stage*'Checkout') {
+        stage('Checkout') {
             steps {
-*               checkout scm
-      *     }
-        }
-
-        stage('A* Code Review') {
-            steps*{
-
-                bat*'''
-                python jenkins*\ai_code_reviewer_v1.py ^
-        *         --workspace . ^
-         *        --config jenkins\\ai_code_*eviewer_config.json ^
-            *     --fail-build false
-          *     '''
-
+                checkout scm
             }
         }
-*    }
+
+        stage('AI Code Review') {
+            steps {
+                bat '''
+                python jenkins\\ai_code_reviewer_v1.py ^
+                  --workspace . ^
+                  --config jenkins\\ai_code_reviewer_config.json ^
+                  --fail-build false
+                '''
+            }
+        }
+
+    }
 
     post {
-        always {*
+        always {
             archiveArtifacts(
-   *            artifacts: 'ai_code_re*iew_report.html,ai_code_review_rep*rt.json',
-                allowEmp*yArchive: true
+                artifacts: 'ai_code_review_report.html,ai_code_review_report.json',
+                allowEmptyArchive: true
             )
-
-    *   }
+        }
     }
 }
