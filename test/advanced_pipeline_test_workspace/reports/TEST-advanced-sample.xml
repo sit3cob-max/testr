@@ -1,0 +1,12 @@
+<testsuite tests="120" failures="9" errors="4" skipped="6" time="45.7">
+    <testcase classname="tests.test_release" name="test_release_candidate" time="0.2" />
+    <testcase classname="tests.test_quality" name="test_quality_gate" time="0.5">
+        <failure message="Expected risk below threshold">Risk score too high</failure>
+    </testcase>
+    <testcase classname="tests.test_dora" name="test_dora_metrics" time="0.3">
+        <error message="Missing deployment event">No deployment marker</error>
+    </testcase>
+    <testcase classname="tests.test_skip" name="test_future_rule" time="0.0">
+        <skipped message="Rule not implemented" />
+    </testcase>
+</testsuite>
