@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    environment {
+        ENABLE_PIPELINE_IMPROVER = 'true'
+        ENABLE_PREDICTIVE_QUALITY_GATES = 'true'
+        ENABLE_DORA_METRICS = 'true'
+        ENABLE_AI_CODE_REVIEW = 'true'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Build placeholder'
+            }
+        }
+        stage('Risky Shell Example') {
+            steps {
+                sh 'echo temporary pipeline command'
+            }
+        }
+        stage('Pipeline Improver') {
+            steps {
+                bat 'python automatic.py --workspace . --coverage-file coverage.xml --junit-pattern "reports\\TEST-*.xml"'
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'pipeline_improver_report.html,pipeline_improver_report.json', allowEmptyArchive: true
+        }
+    }
+}
