@@ -1,26 +1,51 @@
 pipeline {
-  agent any
-  options { skipDefaultCheckout(false); disableConcurrentBuilds() }
-  stages {
-    stage('Analyze Changed Code') {
-      steps {
-        bat '''
-        python jenkins\\reviewer.py --workspace . --output review-output\\review.json
-        '''
-      }
+    agent any
+
+    options {
+        skipDefaultCheckout(false)
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '30'))
     }
-    stage('Build Dashboard') {
-      steps {
-        bat '''
-        python review-ui\\build_dashboard.py --input review-output\\review.json --output review-ui\\index.html
-        '''
-      }
+
+    stages {
+
+        stage('Analyze Changed Code') {
+            steps {
+                bat '''
+                python dashboard\\jenkins\\reviewer.py ^
+                  --workspace . ^
+                  --output review-output\\review.json
+                '''
+            }
+        }
+
+        stage('Build Dashboard') {
+            steps {
+                bat '''
+                python dashboard\\review-ui\\build_dashboard.py ^
+                  --input review-output\\review.json ^
+                  --output dashboard\\review-ui\\index.html
+                '''
+            }
+        }
     }
-  }
-  post {
-    always {
-      archiveArtifacts artifacts: 'review-ui/**,review-output/**', allowEmptyArchive: true
-      publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'review-ui', reportFiles: 'index.html', reportName: 'Code Review Dashboard'])
+
+    post {
+        always {
+
+            archiveArtifacts(
+                artifacts: 'dashboard/review-ui/**,review-output/**',
+                allowEmptyArchive: true
+            )
+
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'dashboard/review-ui',
+                reportFiles: 'index.html',
+                reportName: 'Dashboard'
+            ])
+        }
     }
-  }
 }
