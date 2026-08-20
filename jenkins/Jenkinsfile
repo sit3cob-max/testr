@@ -12,7 +12,7 @@ pipeline {
         stage('Analyze Changed Code') {
             steps {
                 bat '''
-                python jenkins\\reviewer.py ^
+                python dashboard\\jenkins\\reviewer.py ^
                   --workspace . ^
                   --output review-output\\review.json
                 '''
@@ -22,9 +22,9 @@ pipeline {
         stage('Build Dashboard') {
             steps {
                 bat '''
-                python review-ui\\build_dashboard.py ^
+                python dashboard\\review-ui\\build_dashboard.py ^
                   --input review-output\\review.json ^
-                  --output review-ui\\index.html
+                  --output dashboard\\review-ui\\index.html
                 '''
             }
         }
@@ -34,7 +34,7 @@ pipeline {
         always {
 
             archiveArtifacts(
-                artifacts: 'review-ui/**,review-output/**',
+                artifacts: 'dashboard/review-ui/**,review-output/**',
                 allowEmptyArchive: true
             )
 
@@ -42,7 +42,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'review-ui',
+                reportDir: 'dashboard/review-ui',
                 reportFiles: 'index.html',
                 reportName: 'Dashboard'
             ])
