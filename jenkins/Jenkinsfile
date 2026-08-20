@@ -1,37 +1,50 @@
 pipeline {
-    agent any
+  agent any
 
-    options {
-        skipDefaultCheckout(false)
+  options {
+    skipDefaultCheckout(false)
+    disableConcurrentBuilds()
+  }
+
+  stages {
+
+    stage('Analyze Changed Code') {
+      steps {
+        bat '''
+        python jenkins\\reviewer.py ^
+          --workspace . ^
+          --output review-output\\review.json
+        '''
+      }
     }
 
-    stages {
-        stage('AI Changed-Code Review') {
-            steps {
-                bat '''
-                python jenkins\\ai_code_reviewer_v2.py ^
-                  --workspace . ^
-                  --config jenkins\\ai_code_reviewer_v2_config.json ^
-                  --fail-build false
-                '''
-            }
-        }
+    stage('Build Dashboard') {
+      steps {
+        bat '''
+        python review-ui\\build_dashboard.py ^
+          --input review-output\\review.json ^
+          --output review-ui\\index.html
+        '''
+      }
     }
+  }
 
-    post {
-        always {
-            archiveArtifacts(
-                artifacts: 'ai_code_review_report.html,ai_code_review_report.json,ai_code_review_history.json',
-                allowEmptyArchive: true
-            )
-            publishHTML(target: [
-                allowMissing: true,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: '.',
-                reportFiles: 'ai_code_review_report.html',
-                reportName: 'AI Changed-Code Review'
-            ])
-        }
+  post {
+    always {
+
+      archiveArtifacts(
+        artifacts: 'review-ui/**,review-output/**',
+        allowEmptyArchive: true
+      )
+
+      publishHTML(target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'review-ui',
+        reportFiles: 'index.html',
+        reportName: 'Code Review Dashboard'
+      ])
     }
+  }
 }
