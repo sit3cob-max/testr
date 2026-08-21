@@ -1,38 +1,46 @@
 pipeline {
-  agent any
-  options { skipDefaultCheckout(false); disableConcurrentBuilds() }
-  stages {
-    stage('MISRA AUTOSAR Pre-check') {
-      steps {
-        bat '''
-        python dashboard\\jenkins\\compliance_agent.py ^
-          --workspace . ^
-          --config dashboard\\config\\rules.json ^
-          --output review-output\\review.json
-        '''
-      }
-    }
-    stage('Build Compliance Dashboard') {
-      steps {
-        bat '''
-        python dashboard\\review-ui\\build_dashboard.py ^
-          --input review-output\\review.json ^
-          --output dashboard\\review-ui\\index.html
-        '''
-      }
-    }
-  }
-post {
+    agent any
 
-    always {
+    options {
+        disableConcurrentBuilds()
+    }
 
-        publishHTML(target: [
-            allowMissing: false,
-            alwaysLinkToLastBuild: true,
-            keepAll: true,
-            reportDir: 'dashboard/review-ui',
-            reportFiles: 'index.html',
-            reportName: 'AI Compliance Dashboard'
-        ])
+    stages {
+
+        stage('MISRA AUTOSAR Review') {
+            steps {
+                bat '''
+                python dashboard\\jenkins\\compliance_agent.py ^
+                  --workspace . ^
+                  --config dashboard\\config\\rules.json ^
+                  --output review-output\\review.json
+                '''
+            }
+        }
+
+        stage('Build Dashboard') {
+            steps {
+                bat '''
+                python dashboard\\review-ui\\build_dashboard.py ^
+                  --input review-output\\review.json ^
+                  --output dashboard\\review-ui\\index.html
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'dashboard/review-ui',
+                reportFiles: 'index.html',
+                reportName: 'AI Compliance Dashboard'
+            ])
+
+        }
     }
 }
