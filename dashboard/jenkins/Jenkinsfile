@@ -22,10 +22,17 @@ pipeline {
       }
     }
   }
-  post {
+post {
+
     always {
-      archiveArtifacts artifacts: 'dashboard/review-ui/**,review-output/**', allowEmptyArchive: true
-      publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'dashboard/review-ui', reportFiles: 'index.html', reportName: 'MISRA AUTOSAR Review'])
+
+        publishHTML(target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'dashboard/review-ui',
+            reportFiles: 'index.html',
+            reportName: 'AI Compliance Dashboard'
+        ])
     }
-  }
 }
