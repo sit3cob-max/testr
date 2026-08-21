@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
-import argparse, html, json
+import argparse,html,json
 from pathlib import Path
 from collections import Counter
-def e(v): return html.escape(str(v),quote=True)
+def e(x):return html.escape(str(x),quote=True)
+def code_block(block):
+ before=[];after=[]
+ for r in block:
+  if r['kind']=='deleted':before.append(f"{r.get('old') or '' :>4}  - {e(r.get('before',''))}")
+  elif r['kind']=='added':after.append(f"{r.get('new') or '' :>4}  + {e(r.get('after',''))}")
+  else:
+   before.append(f"{r.get('old') or '' :>4}    {e(r.get('before',''))}");after.append(f"{r.get('new') or '' :>4}    {e(r.get('after',''))}")
+ return '\n'.join(before), '\n'.join(after)
 def main():
- p=argparse.ArgumentParser();p.add_argument('--input',default='review-output/review.json');p.add_argument('--output',default='dashboard/review-ui/index.html');a=p.parse_args();d=json.loads(Path(a.input).read_text(encoding='utf-8'));files=d.get('files',[]);counts=d.get('counts',{});score=d.get('score',100);status=d.get('status','GOOD');cats=Counter(x['category'] for f in files for x in f.get('findings',[]));mx=max(cats.values() or [1]);cat=''.join(f'<div class=row><span>{e(k)}</span><div class=track><i style="width:{v/mx*100:.1f}%"></i></div><b>{v}</b></div>' for k,v in cats.most_common()) or '<div class=clean>No configured findings.</div>';sections=[]
- for f in files:
-  by={}
-  for q in f.get('findings',[]): by.setdefault(q['line'],[]).append(q)
-  rows=[]
-  for r in f.get('rows',[]):
-   marks=''.join('<span class=dot>●</span>' for _ in by.get(r.get('new'),[]));rows.append(f'<tr class="{e(r.get("kind"))}"><td>{marks}</td><td class=ln>{r.get("old") or ""}</td><td>{e(r.get("before",""))}</td><td class=ln>{r.get("new") or ""}</td><td>{e(r.get("after",""))}</td></tr>')
-  cards=[]
-  for q in f.get('findings',[]): cards.append(f'''<article class="finding {e(q['severity'])}"><header><span class=badge>{e(q['severity'])}</span><b>{e(q['rule_id'])} · {e(q['title'])}</b><em>Line {q['line']}</em></header><pre>{e(q['code'])}</pre><div class=grid><section><label>Standard</label><p>{e(q['standard'])} · {e(q['obligation'])}</p></section><section><label>Root cause</label><p>{e(q['root_cause'])}</p></section><section><label>Risk explanation</label><p>{e(q['risk_explanation'])}</p></section><section><label>Fix recommendation</label><p>{e(q['fix_recommendation'])}</p></section><section><label>Evidence quality</label><p>{e(q['confidence'])}</p></section><section><label>Source</label><p>{e(q['source'])}</p></section></div></article>''')
-  sections.append(f'<section class=file><div class=filehead><b>{e(f["path"])}</b><span class=plus>+{f["added"]}</span><span class=minus>-{f["deleted"]}</span></div><div class=scroll><table><thead><tr><th></th><th>#</th><th>Before</th><th>#</th><th>After</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>{"".join(cards) if cards else "<div class=clean>No configured findings in added lines.</div>"}</section>')
- doc=f'''<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>MISRA AUTOSAR Review</title><link rel=stylesheet href="assets/dashboard.css"></head><body><main><header class=top><div><h1>MISRA &amp; AUTOSAR Changed-Code Review</h1><p>{e(d.get('profile',''))}</p></div><div>Build {e(d.get('build'))} · {e(d.get('commit_short'))}</div></header><section class="banner {status.lower()}"><div><b>{e(status)} · {e(d.get('gate'))}</b><small>{e(d.get('message'))} by {e(d.get('author'))}</small></div><strong>{score}%</strong></section><section class=kpis><div><small>Changed files</small><b>{len(files)}</b></div><div><small>Findings</small><b>{d.get('total')}</b></div><div><small>Rules enabled</small><b>{d.get('rules_enabled')}</b></div><div><small>Code delta</small><b><i class=plus>+{d.get('added')}</i> <i class=minus>-{d.get('deleted')}</i></b></div></section><section class=summary><div class=gauge style="--score:{score}"><b>{score}</b></div><div class=categories><h2>Findings by category</h2>{cat}</div><div class=severity><h2>Severity</h2>{''.join(f'<div><span>{s}</span><b>{counts.get(s,0)}</b></div>' for s in ['CRITICAL','HIGH','MEDIUM','LOW'])}</div></section><div class=notice>{e(d.get('disclaimer'))}</div>{''.join(sections) if sections else '<div class=clean>No reviewable C/C++ changes.</div>'}<footer>Jenkins compliance pre-check · changed lines only · advisory evidence</footer></main></body></html>''';out=Path(a.output);out.parent.mkdir(parents=True,exist_ok=True);out.write_text(doc,encoding='utf-8')
+ p=argparse.ArgumentParser();p.add_argument('--input');p.add_argument('--output');a=p.parse_args();d=json.loads(Path(a.input).read_text(encoding='utf-8'));counts=d['counts'];cats=Counter(q['category'] for f in d['files'] for q in f['findings']);maxc=max(cats.values() or [1]);bars=''.join(f'<div class=bar><span>{e(k)}</span><i><b style="width:{v/maxc*100:.1f}%"></b></i><strong>{v}</strong></div>' for k,v in cats.items()) or '<p class=ok>No issues</p>';cards=[]
+ for f in d['files']:
+  issues=[]
+  for q in f['findings']:
+   before,after=code_block(q['block']);diff=(f'<div class=compare><div><label>Before</label><pre>{before or "New file"}</pre></div><div><label>After</label><pre>{after}</pre></div></div>') if before else f'<div class=single><label>Code</label><pre>{after}</pre></div>'
+   issues.append(f'''<details class="issue {q['severity'].lower()}"><summary><span class=badge>{e(q['severity'])}</span><b>{e(q['rule'])}</b><span>{e(q['issue'])}</span><em>Line {q['line']}</em></summary><div class=body><div class=words><p><strong>Why:</strong> {e(q['why'])}</p><p><strong>Fix:</strong> {e(q['fix'])}</p></div>{diff}</div></details>''')
+  cards.append(f'<section class=file><header><h2>{e(f["path"])}</h2><span>{len(f["findings"])} issue(s)</span></header>{"".join(issues)}</section>')
+ sev=''.join(f'<div class="sev {s.lower()}"><span>{s.title()}</span><b>{counts.get(s,0)}</b><i style="height:{max(3,counts.get(s,0)*22)}px"></i></div>' for s in ['CRITICAL','HIGH','MEDIUM','LOW']);doc=f'''<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Compliance Dashboard</title><link rel=stylesheet href="assets/dashboard.css"></head><body><main><header class=top><div><h1>Compliance Dashboard</h1><p>MISRA + AUTOSAR changed code</p></div><div>Build {e(d['build'])} · {e(d['commit'])}</div></header><section class="result {d['status'].lower()}"><div><b>{e(d['status'])}</b><small>{e(d['gate'])}</small></div><strong>{d['score']}%</strong></section><section class=kpis><div><span>Issue files</span><b>{len(d['files'])}</b></div><div><span>Issues</span><b>{d['total']}</b></div><div><span>Critical</span><b>{counts.get('CRITICAL',0)}</b></div><div><span>High</span><b>{counts.get('HIGH',0)}</b></div></section><section class=charts><article><h2>Issues by type</h2>{bars}</article><article><h2>Severity</h2><div class=sevchart>{sev}</div></article></section>{''.join(cards) if cards else '<div class=empty><b>No issues found</b><p>Changed code passed the checks.</p></div>'}<footer>Only files and code blocks with issues are shown.</footer></main></body></html>''';o=Path(a.output);o.parent.mkdir(parents=True,exist_ok=True);o.write_text(doc,encoding='utf-8')
 if __name__=='__main__':main()
