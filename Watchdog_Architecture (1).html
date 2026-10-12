@@ -13824,72 +13824,80 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
     });
   </script>
-<section id="cap-panel" style="font-family:Segoe UI,Arial,sans-serif;color:#222;background:#fff;max-width:1100px;margin:40px auto;padding:28px;border-top:4px solid #B08800;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.08)">
+<section id="cap-panel" style="font-family:Segoe UI,Arial,sans-serif;color:#222;background:#fff;max-width:1000px;margin:40px auto;padding:28px;border-top:4px solid #B08800;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.08)">
   <style>
     #cap-panel h2{color:#1F3864;margin:0 0 6px;font-size:24px}
-    #cap-panel h3{color:#1F3864;margin:22px 0 8px;font-size:17px;border-bottom:1px solid #ddd;padding-bottom:4px}
-    #cap-panel p.hint{color:#666;font-size:13px;margin:4px 0 12px}
-    #cap-panel .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 18px}
-    #cap-panel label{display:block;font-size:13px;font-weight:600;color:#333}
-    #cap-panel label span{display:block;font-weight:normal;color:#777;font-size:11px;margin-top:2px}
-    #cap-panel input{width:100%;box-sizing:border-box;padding:6px 8px;margin-top:4px;border:1px solid #bbb;border-radius:4px;font-size:14px}
-    #cap-panel textarea{width:100%;box-sizing:border-box;min-height:90px;padding:10px;border:1px solid #bbb;border-radius:6px;font-family:Consolas,monospace;font-size:13px}
-    #cap-panel button{background:#1F3864;color:#fff;border:0;padding:9px 16px;border-radius:5px;font-size:14px;cursor:pointer;margin:8px 8px 0 0}
-    #cap-panel button.alt{background:#777}
-    #cap-panel table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
-    #cap-panel td,#cap-panel th{padding:7px 9px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+    #cap-panel h3{color:#1F3864;margin:24px 0 8px;font-size:18px;border-bottom:1px solid #ddd;padding-bottom:4px}
+    #cap-panel p{font-size:15px;line-height:1.5;margin:6px 0}
+    #cap-panel .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 18px}
+    #cap-panel label{display:block;font-size:14px;font-weight:600;color:#333}
+    #cap-panel label span{display:block;font-weight:normal;color:#666;font-size:12px;margin-top:2px}
+    #cap-panel input{width:100%;box-sizing:border-box;padding:7px 9px;margin-top:4px;border:1px solid #bbb;border-radius:4px;font-size:15px}
+    #cap-panel button{background:#1F3864;color:#fff;border:0;padding:9px 16px;border-radius:5px;font-size:14px;cursor:pointer;margin-top:10px}
+    #cap-panel table{width:100%;border-collapse:collapse;font-size:15px;margin-top:6px}
+    #cap-panel td,#cap-panel th{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
     #cap-panel th{background:#1F3864;color:#fff;font-weight:600}
-    #cap-panel td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
-    #cap-panel .verdict{padding:10px 14px;border-radius:6px;font-size:15px;margin:10px 0}
+    #cap-panel td.num{text-align:right;white-space:nowrap;font-weight:700}
+    #cap-panel .steps{background:#f4f6fa;border-left:4px solid #1F3864;padding:12px 16px;border-radius:4px}
+    #cap-panel .steps li{margin:6px 0;font-size:15px;line-height:1.5}
+    #cap-panel .verdict{padding:12px 16px;border-radius:6px;font-size:16px;margin:10px 0;line-height:1.5}
     #cap-panel .ok{background:#e8f5e9;color:#1b5e20}
     #cap-panel .bad{background:#fdecea;color:#8a1c1c}
-    #cap-panel .found{font-size:12px;color:#555;margin-top:6px}
-    #cap-panel .bars{display:flex;align-items:flex-end;gap:10px;height:200px;border-left:1px solid #bbb;border-bottom:1px solid #bbb;padding:8px 8px 0;margin-top:8px}
+    #cap-panel .bars{display:flex;align-items:flex-end;gap:10px;height:190px;border-left:1px solid #bbb;border-bottom:1px solid #bbb;padding:8px 8px 0;margin-top:8px}
     #cap-panel .bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
     #cap-panel .bar i{display:block;width:70%;border-radius:3px 3px 0 0;background:#2e7d32}
     #cap-panel .bar i.hot{background:#c62828}
-    #cap-panel .bar b{font-size:11px;color:#333;margin-bottom:3px;white-space:nowrap}
-    #cap-panel .bar em{font-style:normal;font-size:11px;color:#555;margin-top:4px;white-space:nowrap}
-    #cap-panel .foot{font-size:12px;color:#666;margin-top:14px;line-height:1.5}
+    #cap-panel .bar b{font-size:12px;color:#333;margin-bottom:3px;white-space:nowrap}
+    #cap-panel .bar em{font-style:normal;font-size:12px;color:#555;margin-top:4px;white-space:nowrap}
   </style>
 
-  <h2>Capacity calculator: how much GPU, storage and time for N users</h2>
-  <p class="hint">Enter a scenario in the text box and press <b>Fill the boxes from my text</b>, or change the boxes directly. Everything updates on its own. Numbers come from the measured report (gpu_report_20261011_232130.xlsx).</p>
+  <h2>How much computer power and storage do you need?</h2>
+  <p>Change the numbers in the boxes. The answers update by themselves.</p>
 
+  <h3>1. How we calculate</h3>
+  <ol class="steps" id="cap-steps"></ol>
 
-
-  <h3>Settings</h3>
+  <h3>2. Your numbers</h3>
   <div class="grid">
-    <label>Number of users<span>people who use the reviewer</span><input id="u_users" type="number" min="1"></label>
-    <label>Pull requests per person per day<span>each one is reviewed</span><input id="u_prsPerUser" type="number" min="0" step="0.1"></label>
-    <label>Lines of code per pull request<span>the 100-line default</span><input id="u_linesPerPr" type="number" min="1"></label>
-    <label>Reviews per pull request<span>usually 1</span><input id="u_reviewsPerPr" type="number" min="1"></label>
-    <label>Working hours per day<span>when people send requests</span><input id="u_hours" type="number" min="1" step="0.5"></label>
-    <label>Busiest hour compared to average<span>peak factor, e.g. 3</span><input id="u_busiest" type="number" min="1" step="0.5"></label>
-    <label>A3000 cards you have<span>RTX A3000 Laptop GPU, one per card</span><input id="u_gpus" type="number" min="1"></label>
-    <label>Video memory per card (GB)<span>A3000 = 6 GB (report)</span><input id="u_cardGB" type="number" min="1" step="1"></label>
-    <label>Model memory per copy (GB)<span>measured 4.1 GB for current model; 14B needs about 9 GB</span><input id="u_modelGB" type="number" min="0.1" step="0.1"></label>
-    <label>Watchdog check interval (seconds)<span>how often it looks at Bitbucket</span><input id="u_pollS" type="number" min="1"></label>
-    <label>GPU seconds per 100 lines<span>measured: 21.14 (report)</span><input id="u_secPer100" type="number" min="0.1" step="0.01"></label>
-    <label>Longest wait allowed in queue (s)<span>above this, the system is too slow</span><input id="u_queueCap" type="number" min="1"></label>
+    <label>Number of people<span>people who will use the reviewer</span><input id="u_users" type="number" min="1"></label>
+    <label>Pull requests per person per day<span>each one gets one review</span><input id="u_prsPerUser" type="number" min="0" step="0.1"></label>
+    <label>Lines of code per pull request<span>size of one change</span><input id="u_linesPerPr" type="number" min="1"></label>
+    <label>Working hours per day<span>The hours in a day when people send pull requests. Example: 8 for a normal workday.</span><input id="u_hours" type="number" min="1" step="0.5"></label>
+    <label>Busiest hour, compared to average<span>The busiest hour has this many times more work than an average hour. Use 3 if you don't know.</span><input id="u_busiest" type="number" min="1" step="0.5"></label>
+    <label>Graphics cards you have<span>RTX A3000 cards</span><input id="u_gpus" type="number" min="1"></label>
+    <label>Memory on one card (GB)<span>RTX A3000 has 6 GB</span><input id="u_cardGB" type="number" min="1" step="1"></label>
+    <label>Memory used by the AI model (GB)<span>How much card memory the model uses. Measured: 4.1 GB. To check yourself, run nvidia-smi while a review is running and read the Memory-Usage number.</span><input id="u_modelGB" type="number" min="0.1" step="0.1"></label>
+    <label>Time to check for comments (seconds)<span>how often Watchdog checks Bitbucket</span><input id="u_pollS" type="number" min="1"></label>
+    <label>Time per 100 lines of code (seconds)<span>measured: 21.14 seconds</span><input id="u_secPer100" type="number" min="0.1" step="0.01"></label>
+    <label>Longest acceptable wait (seconds)<span>The longest time a request may wait for a free card. If the average wait is longer, the system is too slow. Default: 30 seconds.</span><input id="u_queueCap" type="number" min="1"></label>
+    <label>Number of repositories<span>How many projects Watchdog copies to the server. Each project is copied once, not once per person.</span><input id="u_repos" type="number" min="0"></label>
+    <label>Size of one repository copy (MB)<span>Size of one project's copy on the server. Measure it with: du -sh BitbucketVersionReviewer/repo_clones (0 if unknown)</span><input id="u_repoMB" type="number" min="0" step="1"></label>
   </div>
+  <button id="cap-reset" type="button">Reset to the normal numbers</button>
 
-  <h3>Result</h3>
-  <p class="hint">GPU counts are RTX A3000 cards (6 GB each), not a generic number.</p>
+  <h3>3. Computer power (graphics cards)</h3>
   <div id="cap-verdict" class="verdict"></div>
   <table>
-    <tr><th>What</th><th style="text-align:right">Value</th><th>Plain meaning</th></tr>
-    <tbody id="cap-rows"></tbody>
+    <tr><th>Question</th><th style="text-align:right">Answer</th></tr>
+    <tbody id="cap-power"></tbody>
   </table>
 
-  <h3>GPU load by number of users</h3>
-  <p class="hint">Red bars are over 90% busy on the GPUs you entered. Other settings stay as you set them.</p>
-  <div id="cap-bars" class="bars"></div>
+  <h3>4. Wait time</h3>
+  <table>
+    <tr><th>Question</th><th style="text-align:right">Answer</th></tr>
+    <tbody id="cap-time"></tbody>
+  </table>
 
-  <div class="foot">
-    <b>How to read this:</b> <i>Busy</i> is how much of the GPU's working time is used at the busiest hour. <i>Wait</i> is extra time a request spends in line. <i>Time to comment</i> is the average time from a push to the Bitbucket comment. Worst case adds a full check interval and the longest allowed queue wait.<br>
-    <b>Limits:</b> the GPU-seconds figure comes from only 6 measured reviews of 22 lines. The 531-line pull request measured 25–33 seconds, which is far less than this estimate, so the 100-line default is cautious. The spreadsheet's GPU column can differ by one GPU at very large numbers (for example 5,000 users). Measure again with your real team before buying hardware.
-  </div>
+  <h3>5. Storage</h3>
+  <p>Data <b>downloaded</b> is moved from Bitbucket and used. It is not kept. Data <b>stored</b> stays on the server and grows over time.</p>
+  <table>
+    <tr><th>Question</th><th style="text-align:right">Answer</th></tr>
+    <tbody id="cap-storage"></tbody>
+  </table>
+
+  <h3>6. Busy hours, by number of people</h3>
+  <p>Red means the cards are too busy at that size.</p>
+  <div id="cap-bars" class="bars"></div>
 </section>
 
 <script>
@@ -13910,7 +13918,9 @@ var CAP_DEFAULTS = {
   bytesDownload: 81628,  // bytes downloaded from Bitbucket per review (measured)
   bytesReply: 404,       // bytes posted back per review (measured)
   bytesDb: 555,          // bytes kept in database per review (measured)
-  bytesPoll: 11869       // bytes read per trigger check (measured)
+  bytesPoll: 11869,      // bytes read per trigger check (measured)
+  repos: 1,              // repositories being watched
+  repoMB: 0              // average size of one repository copy on disk (MB); measure with: du -sh repo_clones
 };
 
 function capCalc(p) {
@@ -13944,31 +13954,42 @@ function capCalc(p) {
     replyPerDay: reviewsPerDay * p.bytesReply,
     fine: !over && Wq <= p.queueCap && needed <= n && fitsCard,
     fitsCard: fitsCard,
+    // --- storage section ---
+    dlPerReview: p.bytesDownload,                                  // transfer from Bitbucket per review
+    dlPollsDay: pollsPerDay * p.bytesPoll,                         // transfer for trigger checks per day
+    dlDay: reviewsPerDay * p.bytesDownload + pollsPerDay * p.bytesPoll,
+    dlMonth: (reviewsPerDay * p.bytesDownload + pollsPerDay * p.bytesPoll) * 30,
+    dlYear: (reviewsPerDay * p.bytesDownload + pollsPerDay * p.bytesPoll) * 365,
+    dbYear: reviewsPerDay * p.bytesDb * 365,                       // text kept in database per year
+    cloneBytes: p.repos * p.repoMB * 1e6,                          // repository copies kept on disk
+    storedYear: reviewsPerDay * p.bytesDb * 365 + p.repos * p.repoMB * 1e6,
     totalVramGB: needed * p.cardGB,        // total video memory of the cards needed
     modelGBTotal: needed * p.modelGB,      // memory used by model copies across those cards
   };
 }
 
 (function () {
-  var FIELDS = ["users","prsPerUser","linesPerPr","reviewsPerPr","hours","busiest","gpus","cardGB","modelGB","pollS","secPer100","queueCap"];
-  var DEF = { users:1, prsPerUser:2, linesPerPr:100, reviewsPerPr:1, hours:8, busiest:3, gpus:1, cardGB:6, modelGB:4.1, pollS:15, secPer100:21.14, queueCap:30 };
-  var FIXED = { bytesDownload:81628, bytesReply:404, bytesDb:555, bytesPoll:11869 };
+  var FIELDS = ["users","prsPerUser","linesPerPr","hours","busiest","gpus","cardGB","modelGB","pollS","secPer100","queueCap","repos","repoMB"];
+  var DEF = { users:1, prsPerUser:2, linesPerPr:100, hours:8, busiest:3, gpus:1, cardGB:6, modelGB:4.1, pollS:15, secPer100:21.14, queueCap:30, repos:1, repoMB:0 };
 
   function $(id) { return document.getElementById(id); }
-  function fmtN(x, d) { return (x === Infinity) ? "over capacity" : Number(x).toLocaleString(undefined, { maximumFractionDigits: d == null ? 0 : d }); }
-  function fmtTime(s) {
+  function num(x, d) {
+    if (x === Infinity) return "too many";
+    return Number(x).toLocaleString(undefined, { maximumFractionDigits: d == null ? 0 : d });
+  }
+  function secs(s) {
     if (s === Infinity) return "never (too slow)";
-    if (s < 60) return fmtN(s, 1) + " s";
-    if (s < 3600) return fmtN(s / 60, 1) + " min";
-    return fmtN(s / 3600, 1) + " h";
+    if (s < 60) return num(s, 1) + " seconds";
+    if (s < 3600) return num(s / 60, 1) + " minutes";
+    return num(s / 3600, 1) + " hours";
   }
-  function fmtBytes(b) {
-    if (b === Infinity) return "-";
-    if (b >= 1e9) return fmtN(b / 1e9, 2) + " GB";
-    if (b >= 1e6) return fmtN(b / 1e6, 1) + " MB";
-    if (b >= 1e3) return fmtN(b / 1e3, 1) + " KB";
-    return fmtN(b, 0) + " bytes";
+  function size(b) {
+    if (b >= 1e9) return num(b / 1e9, 2) + " GB";
+    if (b >= 1e6) return num(b / 1e6, 1) + " MB";
+    if (b >= 1e3) return num(b / 1e3, 1) + " KB";
+    return num(b, 0) + " bytes";
   }
+  function row(q, a) { return "<tr><td>" + q + "</td><td class='num'>" + a + "</td></tr>"; }
 
   function readSettings() {
     var p = {};
@@ -13976,96 +13997,92 @@ function capCalc(p) {
       var v = parseFloat($("u_" + f).value);
       p[f] = isNaN(v) ? DEF[f] : v;
     });
-    Object.keys(FIXED).forEach(function (k) { p[k] = FIXED[k]; });
+    p.reviewsPerPr = 1;
+    p.bytesDownload = 81628; p.bytesReply = 404; p.bytesDb = 555; p.bytesPoll = 11869;
     return p;
   }
-  function writeSettings(p) {
-    FIELDS.forEach(function (f) { $("u_" + f).value = p[f]; });
-  }
 
-  function rowHtml(label, value, meaning) {
-    return "<tr><td>" + label + "</td><td class='num'>" + value + "</td><td>" + meaning + "</td></tr>";
+  function steps(p, r) {
+    var out = "";
+    out += "<li><b>Reviews per day</b> = people × pull requests per person = " +
+           num(p.users) + " × " + num(p.prsPerUser, 1) + " = <b>" + num(r.reviewsPerDay) + "</b></li>";
+    out += "<li><b>Time for one review</b> = seconds per 100 lines × lines ÷ 100 = " +
+           num(p.secPer100, 2) + " × " + num(p.linesPerPr) + " ÷ 100 = <b>" + secs(r.S) + "</b></li>";
+    out += "<li><b>Work in the busiest hour</b> = reviews ÷ working hours × busiest factor = " +
+           num(r.reviewsPerDay) + " ÷ " + num(p.hours, 1) + " × " + num(p.busiest, 1) + " = <b>" + num(r.reviewsPerHourBusy, 1) + " reviews</b></li>";
+    out += "<li><b>Cards needed</b> = (work in busiest hour × time for one review ÷ 3600) ÷ 0.9, rounded up = <b>" + r.needed + "</b></li>";
+    out += "<li><b>Wait in line</b> = busy ÷ (1 − busy) × time for one review. Busy is the share of time the cards are in use.</li>";
+    out += "<li><b>Data downloaded per day</b> = reviews × 82 KB + checks per day × 12 KB.</li>";
+    return out;
   }
 
   function render() {
     var p = readSettings();
     var r = capCalc(p);
 
-    var verdict = $("cap-verdict");
+    $("cap-steps").innerHTML = steps(p, r);
+
+    var v = $("cap-verdict");
     if (r.fine) {
-      verdict.className = "verdict ok";
-      verdict.innerHTML = "<b>Fine.</b> " + fmtN(p.users) + " users run on " + r.n + " RTX A3000 card(s), " + fmtN(r.n * p.cardGB) + " GB video memory in total. A comment arrives in about " + fmtTime(r.avgOut) + " on average.";
+      v.className = "verdict ok";
+      v.innerHTML = "<b>Your setup is enough.</b> " + num(p.users) + " people can use " + r.n +
+        " card(s). A comment appears in about " + secs(r.avgOut) + ".";
+    } else if (!r.fitsCard) {
+      v.className = "verdict bad";
+      v.innerHTML = "<b>The AI model is too big for one card.</b> It needs " + num(p.modelGB, 1) +
+        " GB, and each card has " + num(p.cardGB) + " GB. Use a bigger card or a smaller model.";
     } else {
-      verdict.className = "verdict bad";
-      var why = !r.fitsCard ? "one model copy (" + fmtN(p.modelGB, 1) + " GB) does not fit on one " + p.cardGB + " GB card. Use a bigger card or a smaller model."
-              : r.busyPct === Infinity ? "you have " + r.n + " card(s), which cannot finish the work."
-              : "with " + r.n + " card(s) the wait is " + fmtTime(r.Wq) + ".";
-      verdict.innerHTML = "<b>Not enough.</b> " + fmtN(p.users) + " users need <b>" + r.needed + " RTX A3000 card(s)</b> = <b>" + fmtN(r.totalVramGB) + " GB</b> video memory in total. You have " + r.n + " card(s): " + why;
+      v.className = "verdict bad";
+      v.innerHTML = "<b>Not enough cards.</b> " + num(p.users) + " people need <b>" + r.needed +
+        " cards</b>, which is <b>" + num(r.totalVramGB) + " GB</b> of card memory in total. You have " + r.n + ".";
     }
 
-    var rows = "";
-    rows += rowHtml("Reviews per day", fmtN(r.reviewsPerDay), "pull requests reviewed in one day");
-    rows += rowHtml("Reviews in the busiest hour", fmtN(r.reviewsPerHourBusy, 1), "requests the GPU must handle in its busiest hour");
-    rows += rowHtml("Time GPU needs per review", fmtTime(r.S), "computing time for one pull request");
-    rows += rowHtml("RTX A3000 cards needed", fmtN(r.needed) + " cards", "each card kept under 90% busy");
-    rows += rowHtml("Video memory needed in total", fmtN(r.totalVramGB) + " GB", "all the cards together (" + p.cardGB + " GB each)");
-    rows += rowHtml("Model memory used", fmtN(r.modelGBTotal, 1) + " GB", "one copy of the model per card, " + fmtN(p.modelGB, 1) + " GB each");
-    rows += rowHtml("Does one model copy fit on one card?", r.fitsCard ? "yes" : "NO", "card has " + p.cardGB + " GB");
-    rows += rowHtml("GPU busy at the busiest hour", r.busyPct === Infinity ? "over 100%" : fmtN(r.busyPct, 1) + " %", "share of the GPU's time in use");
-    rows += rowHtml("Wait in queue", fmtTime(r.Wq), "extra time a request waits for the GPU");
-    rows += rowHtml("Time to comment (average)", fmtTime(r.avgOut), "from push to comment in Bitbucket");
-    rows += rowHtml("Time to comment (worst case)", fmtTime(r.worstOut), "a full check interval plus the longest allowed wait");
-    rows += rowHtml("GPU working time per day", fmtN(r.gpuMinPerDay, 1) + " min", "total minutes of GPU computing per day");
-    rows += rowHtml("Downloaded from Bitbucket per day", fmtBytes(r.downloadPerDay), "code and diff data read, not stored");
-    rows += rowHtml("Stored in database per day", fmtBytes(r.dbPerDay), "text kept for memory; grows every day");
-    rows += rowHtml("Stored in database per year", fmtBytes(r.dbPerDay * 365), "approximate, text only");
-    rows += rowHtml("Comments posted per day", fmtBytes(r.replyPerDay), "size of the comments sent back");
-    $("cap-rows").innerHTML = rows;
+    $("cap-power").innerHTML =
+      row("How many cards are needed?", r.needed + " card(s)") +
+      row("How much card memory is needed in total?", num(r.totalVramGB) + " GB") +
+      row("How much memory does the AI model use on each card?", num(p.modelGB, 1) + " GB") +
+      row("Does the model fit on one card?", r.fitsCard ? "Yes" : "No") +
+      row("How many minutes of card work per day?", num(r.gpuMinPerDay, 1) + " minutes");
+
+    $("cap-time").innerHTML =
+      row("Time to do one review", secs(r.S)) +
+      row("Average wait in line", secs(r.Wq)) +
+      row("Time until the comment appears (average)", secs(r.avgOut)) +
+      row("Time until the comment appears (slowest case)", secs(r.worstOut));
+
+    $("cap-storage").innerHTML =
+      row("Downloaded per review", size(r.dlPerReview)) +
+      row("Downloaded per day", size(r.dlDay)) +
+      row("Downloaded per year", size(r.dlYear)) +
+      row("  of which: checks for new comments per day", size(r.dlPollsDay)) +
+      row("Database size per year", size(r.dbYear)) +
+      row("Repository copies on disk", p.repoMB > 0 ? size(r.cloneBytes) : "not entered yet") +
+      row("Total stored per year", p.repoMB > 0 ? size(r.storedYear) : size(r.dbYear) + " + repository copies");
 
     drawBars(p);
   }
 
   function drawBars(p) {
-    var scen = [10, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
+    var scen = [10, 50, 100, 250, 500, 1000, 2500, 5000];
     var html = "";
     scen.forEach(function (u) {
-      var q = Object.assign({}, p, { users: u });
-      var r = capCalc(q);
-      var pct = r.busyPct === Infinity ? 120 : Math.min(120, r.busyPct);
+      var r = capCalc(Object.assign({}, p, { users: u }));
       var hot = r.busyPct === Infinity || r.busyPct > 90;
-      html += "<div class='bar'><b>" + (r.busyPct === Infinity ? "over" : fmtN(r.busyPct, 0) + "%") + "</b>" +
-              "<i class='" + (hot ? "hot" : "") + "' style='height:" + (pct / 120 * 100) + "%'></i>" +
-              "<em>" + fmtN(u) + " users</em><em>" + r.needed + " card(s)</em></div>";
+      var pct = r.busyPct === Infinity ? 100 : Math.min(100, r.busyPct);
+      html += "<div class='bar'><b>" + (r.busyPct === Infinity ? "too busy" : num(r.busyPct, 0) + "%") + "</b>" +
+              "<i class='" + (hot ? "hot" : "") + "' style='height:" + Math.max(2, pct) + "%'></i>" +
+              "<em>" + num(u) + " people</em></div>";
     });
     $("cap-bars").innerHTML = html;
   }
 
-  function parseText(text) {
-    var found = [];
-    function take(re, field, conv) {
-      var m = text.match(re);
-      if (m) {
-        var v = parseFloat(String(m[1]).replace(/,/g, ""));
-        if (!isNaN(v)) { $("u_" + field).value = conv ? conv(v) : v; found.push(field + " = " + v); }
-      }
-    }
-    take(/(\d[\d,]*)\s*(?:users|people|engineers|developers|employees|persons)/i, "users");
-    take(/(\d[\d,]*)\s*(?:lines|loc)\b/i, "linesPerPr");
-    take(/(\d+(?:\.\d+)?)\s*(?:pull requests?|prs?|reviews?)\s*(?:per|a|each)\s*(?:person|user|engineer|developer|day)/i, "prsPerUser");
-    take(/(\d+)\s*(?:gpus?)\b/i, "gpus");
-    take(/(\d+(?:\.\d+)?)\s*(?:hours?|hrs?|h)\s*(?:a|per)\s*day/i, "hours");
-    take(/(?:poll|check|interval)\D{0,15}(\d+)\s*(?:seconds?|secs?|s)\b/i, "pollS");
-    take(/(\d+(?:\.\d+)?)\s*(?:x\s*)?busiest|busiest\D{0,20}(\d+(?:\.\d+)?)/i, "busiest");
-    take(/(\d+)\s*(?:reviews?|prs?|pull requests?)\s*(?:per|a)\s*pull\s*request/i, "reviewsPerPr");
-    $("cap-found").innerHTML = found.length ? "Found in your text: " + found.join(", ") : "Nothing recognised in the text. Use the boxes below instead.";
-    render();
-  }
-
   function init() {
-    writeSettings(DEF);
+    FIELDS.forEach(function (f) { $("u_" + f).value = DEF[f]; });
     FIELDS.forEach(function (f) { $("u_" + f).addEventListener("input", render); });
-    $("cap-parse").addEventListener("click", function () { parseText($("cap-text").value); });
-    $("cap-reset").addEventListener("click", function () { writeSettings(DEF); $("cap-found").innerHTML = ""; render(); });
+    $("cap-reset").addEventListener("click", function () {
+      FIELDS.forEach(function (f) { $("u_" + f).value = DEF[f]; });
+      render();
+    });
     render();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
