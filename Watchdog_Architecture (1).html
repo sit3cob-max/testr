@@ -13900,6 +13900,253 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   <div id="cap-bars" class="bars"></div>
 </section>
 
+<section id="cpu-panel" style="font-family:Segoe UI,Arial,sans-serif;color:#222;background:#fff;max-width:1000px;margin:40px auto;padding:28px;border-top:4px solid #B08800;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.08)">
+    <style>
+    #cpu-panel h2{color:#1F3864;margin:0 0 6px;font-size:24px}
+    #cpu-panel h3{color:#1F3864;margin:24px 0 8px;font-size:18px;border-bottom:1px solid #ddd;padding-bottom:4px}
+    #cpu-panel p{font-size:15px;line-height:1.5;margin:6px 0}
+    #cpu-panel .note{font-size:13px;color:#666}
+    #cpu-panel .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 18px}
+    #cpu-panel label{display:block;font-size:14px;font-weight:600;color:#333}
+    #cpu-panel label span{display:block;font-weight:normal;color:#666;font-size:12px;margin-top:2px}
+    #cpu-panel input{width:100%;box-sizing:border-box;padding:7px 9px;margin-top:4px;border:1px solid #bbb;border-radius:4px;font-size:15px}
+    #cpu-panel table{width:100%;border-collapse:collapse;font-size:15px;margin-top:6px}
+    #cpu-panel td,#cpu-panel th{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+    #cpu-panel th{background:#1F3864;color:#fff;font-weight:600}
+    #cpu-panel td.num{text-align:right;white-space:nowrap;font-weight:700}
+    #cpu-panel .steps{background:#f4f6fa;border-left:4px solid #1F3864;padding:12px 16px;border-radius:4px}
+    #cpu-panel .steps li{margin:6px 0;font-size:15px;line-height:1.5}
+    #cpu-panel .verdict{padding:12px 16px;border-radius:6px;font-size:16px;margin:10px 0;line-height:1.5}
+    #cpu-panel .ok{background:#e8f5e9;color:#1b5e20}
+    #cpu-panel .bad{background:#fdecea;color:#8a1c1c}
+    #cpu-panel button{background:#1F3864;color:#fff;border:0;padding:9px 16px;border-radius:5px;font-size:14px;cursor:pointer;margin-top:10px}
+    #cpu-panel code{font-size:13px;background:#f4f6fa;padding:1px 4px;border-radius:3px;word-break:break-word}
+    #cpu-panel svg.flow{width:100%;max-width:860px;display:block;margin:10px auto}
+    #cpu-panel svg.flow text{font-family:Segoe UI,Arial,sans-serif}
+  </style>
+  <h2>CPU version: how long a review takes without a graphics card</h2>
+  <p>The model runs on the processor (CPU) instead of a graphics card. This section uses the same numbers as
+  the calculator above, and adds the CPU review time, the number of files, and the waiting time. Change the
+  boxes, and the answers update by themselves.</p>
+
+  <h3>1. How a review flows on CPU</h3>
+  <svg class="flow" viewBox="0 0 860 270" role="img" aria-label="CPU review flow">
+    <defs>
+      <marker id="cpu-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0,10 3.5,0 7" fill="#64748b"/>
+      </marker>
+    </defs>
+    <g stroke="#64748b" stroke-width="1.6" fill="none" marker-end="url(#cpu-arrow)">
+      <line x1="190" y1="52" x2="228" y2="52"/>
+      <line x1="410" y1="52" x2="448" y2="52"/>
+      <line x1="630" y1="52" x2="668" y2="52"/>
+      <line x1="760" y1="84" x2="760" y2="166"/>
+      <line x1="668" y1="202" x2="632" y2="202"/>
+      <line x1="448" y1="202" x2="412" y2="202"/>
+      <line x1="320" y1="166" x2="320" y2="86"/>
+    </g>
+    <g font-size="11" fill="#5b6474" text-anchor="middle">
+      <text x="209" y="44" font-size="10">comment</text>
+      <text x="429" y="44">seen</text>
+      <text x="649" y="44">waits</text>
+      <text x="772" y="128" text-anchor="start">starts</text>
+      <text x="650" y="196">sent</text>
+      <text x="430" y="196">done</text>
+      <text x="330" y="130" text-anchor="start">posted</text>
+    </g>
+    <rect x="10" y="20" width="180" height="64" rx="6" fill="rgba(100,116,139,0.1)" stroke="#64748b" stroke-width="1.5"/>
+    <text x="100" y="46" font-size="14" font-weight="600" text-anchor="middle" fill="#111827">Developer</text>
+    <text x="100" y="66" font-size="12" text-anchor="middle" fill="#5b6474">trigger word</text>
+
+    <rect x="230" y="20" width="180" height="64" rx="6" fill="rgba(100,116,139,0.1)" stroke="#64748b" stroke-width="1.5"/>
+    <text x="320" y="46" font-size="14" font-weight="600" text-anchor="middle" fill="#111827">Bitbucket</text>
+    <text x="320" y="66" font-size="12" text-anchor="middle" fill="#5b6474">PR comment</text>
+
+    <rect x="450" y="20" width="180" height="64" rx="6" fill="rgba(100,116,139,0.1)" stroke="#64748b" stroke-width="1.5"/>
+    <text x="540" y="46" font-size="14" font-weight="600" text-anchor="middle" fill="#111827">Watchdog check</text>
+    <text x="540" y="66" font-size="12" text-anchor="middle" fill="#5b6474">every 15 s</text>
+
+    <rect x="670" y="20" width="180" height="64" rx="6" fill="rgba(52,211,153,0.18)" stroke="#059669" stroke-width="1.5"/>
+    <text x="760" y="46" font-size="14" font-weight="600" text-anchor="middle" fill="#111827">Queue</text>
+    <text x="760" y="66" font-size="12" text-anchor="middle" fill="#5b6474">one review at a time</text>
+
+    <rect x="670" y="170" width="180" height="64" rx="6" fill="rgba(100,116,139,0.1)" stroke="#64748b" stroke-width="1.5"/>
+    <text x="760" y="196" font-size="14" font-weight="600" text-anchor="middle" fill="#111827">Download files</text>
+    <text x="760" y="216" font-size="12" text-anchor="middle" fill="#5b6474">changed C and C++ files</text>
+
+    <rect x="450" y="170" width="180" height="64" rx="6" fill="rgba(251,191,36,0.18)" stroke="#d97706" stroke-width="1.5"/>
+    <text x="540" y="196" font-size="14" font-weight="600" text-anchor="middle" fill="#111827">CPU review</text>
+    <text x="540" y="216" font-size="12" text-anchor="middle" fill="#5b6474">about 9 min each</text>
+
+    <rect x="230" y="170" width="180" height="64" rx="6" fill="rgba(100,116,139,0.1)" stroke="#64748b" stroke-width="1.5"/>
+    <text x="320" y="196" font-size="14" font-weight="600" text-anchor="middle" fill="#111827">Post comment</text>
+    <text x="320" y="216" font-size="12" text-anchor="middle" fill="#5b6474">review back on the PR</text>
+  </svg>
+  <p class="note">The orange box is the slow step. The green box is where a review waits its turn.</p>
+
+  <h3>2. How we calculate</h3>
+  <ol class="steps">
+    <li>Time for one review = avg minutes × (lines of code in the pull request ÷ typical lines per pull request).</li>
+    <li>Lines per day = reviews per day × lines of code per pull request.</li>
+    <li>Reviews per day = people × pull requests per person × reviews per pull request.</li>
+    <li>Files per day = reviews per day × files per pull request.</li>
+    <li>Busiest hour = reviews per day ÷ working hours × busiest-hour factor.</li>
+    <li>CPU busy = reviews in the busiest hour × time per review ÷ 3600. At 100% or more, the queue never clears.</li>
+    <li>Average queue wait = busy × time per review ÷ (2 × (1 − busy)).</li>
+    <li>Total time per pull request = queue wait + time per review.</li>
+    <li>Time until the comment appears = total time + half the check interval.</li>
+  </ol>
+
+  <h3>3. Your CPU numbers</h3>
+  <div class="grid">
+    <label>Lines of code per pull request<span>lines changed in one pull request. The review time changes with this.</span><input id="cpu_lines" type="number" min="1" value="300"></label>
+    <label>Typical lines per pull request<span>the size of a normal pull request, where one review takes 9 minutes. Bigger pull requests take longer.</span><input id="cpu_avgLines" type="number" min="1" value="300"></label>
+    <label>Files per pull request<span>how many changed C and C++ files one review reads.</span><input id="cpu_files" type="number" min="1" value="3"></label>
+    <label>Number of people<span>people who will use the reviewer</span><input id="cpu_users" type="number" min="1" value="5"></label>
+    <label>Pull requests per person per day<span>each one gets one review</span><input id="cpu_prs" type="number" min="0" step="0.1" value="2"></label>
+    <label>Working hours per day<span>hours in a day when people send pull requests (8 for a normal day)</span><input id="cpu_hours" type="number" min="1" step="0.5" value="8"></label>
+    <label>Busiest hour compared to average<span>use 3 if you don't know</span><input id="cpu_busiest" type="number" min="1" step="0.5" value="3"></label>
+    <label>Time to check for comments (seconds)<span>how often Watchdog checks Bitbucket</span><input id="cpu_pollS" type="number" min="1" value="15"></label>
+    <label>Longest acceptable wait on CPU (seconds)<span>600 seconds = 10 minutes, the wait you said is acceptable.</span><input id="cpu_cap" type="number" min="0" value="600"></label>
+  </div>
+  <button id="cpu-calc" type="button">Calculate</button>
+  <p class="note">Change any box, or press Calculate. Section 4 and section 5 update from these numbers.</p>
+
+  <h3>4. Answer for your team size</h3>
+  <table>
+    <tr><th>Question</th><th style="text-align:right">Answer</th></tr>
+    <tbody id="cpu-answer"></tbody>
+  </table>
+  <div id="cpu-verdict" class="verdict"></div>
+
+  <h3>5. Queue time from one file to the next</h3>
+  <p>All files of a pull request join the queue together. File 1 starts when the CPU is free. Each later file
+  waits for the files before it. The table shows this for one pull request, using the numbers in section 3.</p>
+  <p id="cpu-filesum" class="note"></p>
+  <table>
+    <tr><th>File</th><th>Waits in queue (from when the comment arrives)</th><th>Finishes at</th></tr>
+    <tbody id="cpu-files"></tbody>
+  </table>
+
+  <h3>6. Team sizes, with the same numbers</h3>
+  <table>
+    <tr><th>People</th><th>Lines per day</th><th>Files per day</th><th>CPU busy</th><th>Average queue wait</th><th>Total per pull request</th><th>Time until comment</th><th>Result</th></tr>
+    <tbody id="cpu-table"></tbody>
+  </table>
+
+  <h3>7. Errors seen in the Watchdog log, and what to do</h3>
+  <p>From the review log of 14 October.</p>
+  <table>
+    <tr><th>What the log says</th><th>What it means</th><th>What to do</th></tr>
+    <tr><td><code>Read timed out (read timeout=300)</code></td>
+        <td>The AI did not answer within 5 minutes, because the CPU was busy with other requests.</td>
+        <td>Set the timeout to 900 seconds. Turn off the manual-rules AI pass (MANUAL_RULES_AI_ENABLED=false).</td></tr>
+    <tr><td><code>Skipped manual-rules AI pass for PR !N</code></td>
+        <td>The rule check was dropped after the timeout. The review is incomplete for that pull request.</td>
+        <td>Timeout seconds should be more but even the error will take too much time to display</td></tr>
+    <tr><td><code>skipped: maximum number of running instances reached (1)</code></td>
+        <td>A check was missed because the previous one was still running. This happened 36 times, so new comments waited.</td>
+        <td>Raise the check interval, or move the reviews to a background queue.</td></tr>
+    <tr><td>Same trigger line logged two or three times</td>
+        <td>One comment was handled more than once, which can cause duplicate work.</td>
+        <td>Check the trigger handling. It does not change the times above.</td></tr>
+    <tr><td>Rule comments in seconds, full review in minutes</td>
+        <td>Not an error. The first comment is quick, and the full review takes the time shown above.</td>
+        <td> first comment will come fast and other comments comes slow full result.</td></tr>
+    <tr><td>Queue wait of 2 minutes or more</td>
+        <td>Several pull requests were triggered together, and each waits for the ones before it.</td>
+        <td> one pull request at a time.</td></tr>
+  </table>
+</section>
+
+<script>
+// CPU panel calculator. Uses the same boxes as the capacity calculator above.
+(function () {
+  function num(id, d) {
+    var el = document.getElementById(id);
+    var x = el ? parseFloat(el.value) : NaN;
+    return isNaN(x) ? d : x;
+  }
+  function fmt(s) {
+    if (!isFinite(s)) return "never clears";
+    if (s < 60) return Math.round(s) + " s";
+    return (s / 60).toFixed(1) + " min";
+  }
+  function row(n, p) {
+    var perDay = n * p.prs * p.rpp;
+    var files = perDay * p.files;
+    var peak = perDay / p.hours * p.busiest;
+    var busy = peak * p.S / 3600;
+    var wait = busy >= 1 ? Infinity : busy * p.S / (2 * (1 - busy));
+    var total = wait + p.S;
+    var comment = total + p.pollS / 2;
+    var s = p.S / p.files;                                    // time to review one file
+    var fileWait = busy >= 1 ? Infinity : busy * s / (2 * (1 - busy));  // queue wait before each file
+    var stepTime = fileWait + s;                              // time from one file start to the next
+    var verdict, good = true;
+    if (busy >= 1) { verdict = "Too slow: the queue grows without end"; good = false; }
+    else if (wait > p.cap) { verdict = "Too slow: wait is above your limit"; good = false; }
+    else verdict = "Fine";
+    return { n: n, perDay: perDay, files: files, lines: perDay * p.lines, busy: busy, wait: wait, total: total,
+             comment: comment, verdict: verdict, good: good, s: s, fileWait: fileWait, stepTime: stepTime };
+  }
+  function params() {
+    return {
+      prs: num("cpu_prs", 2), rpp: 1, files: num("cpu_files", 3),
+      hours: num("cpu_hours", 8), busiest: num("cpu_busiest", 3), pollS: num("cpu_pollS", 15),
+      lines: num("cpu_lines", 300),
+      S: 540 * num("cpu_lines", 300) / Math.max(1, num("cpu_avgLines", 300)),   // 540 s = 9 min at the typical size
+      cap: num("cpu_cap", 600)
+    };
+  }
+  function render() {
+    var p = params();
+    var r = row(num("cpu_users", 5), p);
+    document.getElementById("cpu-answer").innerHTML =
+      "<tr><td>Reviews per day</td><td class='num'>" + Math.round(r.perDay) + "</td></tr>" +
+      "<tr><td>Lines reviewed per day</td><td class='num'>" + Math.round(r.lines) + "</td></tr>" +
+      "<tr><td>Time for one review at this size</td><td class='num'>" + fmt(p.S) + "</td></tr>" +
+      "<tr><td>Files reviewed per day</td><td class='num'>" + Math.round(r.files) + "</td></tr>" +
+      "<tr><td>CPU busy in the busiest hour</td><td class='num'>" + (r.busy * 100).toFixed(0) + "%</td></tr>" +
+      "<tr><td>Average time in the queue</td><td class='num'>" + fmt(r.wait) + "</td></tr>" +
+      "<tr><td>Total time for one pull request</td><td class='num'>" + fmt(r.total) + "</td></tr>" +
+      "<tr><td>Time until the comment appears</td><td class='num'>" + fmt(r.comment) + "</td></tr>";
+    var v = document.getElementById("cpu-verdict");
+    v.className = "verdict " + (r.good ? "ok" : "bad");
+    v.textContent = r.verdict;
+    var rows = [1, 2, 3, 5, 10, 20, 50].map(function (n) { return row(n, p); });
+    document.getElementById("cpu-table").innerHTML = rows.map(function (x) {
+      return "<tr><td>" + x.n + "</td><td>" + Math.round(x.lines) + "</td><td>" + Math.round(x.files) + "</td><td>" + (x.busy * 100).toFixed(0) + "%</td>" +
+        "<td>" + fmt(x.wait) + "</td><td>" + fmt(x.total) + "</td><td>" + fmt(x.comment) + "</td><td>" + x.verdict + "</td></tr>";
+    }).join("");
+
+    // queue time from one file to the next, for one pull request with p.files files
+    var nFiles = Math.max(1, Math.round(p.files));
+    var shown = Math.min(nFiles, 10);
+    // File 1 waits for the work already in the queue (r.wait). File k waits for that and for files 1..k-1.
+    var per = r.s;                                 // time to review one file
+    var fileRows = "";
+    for (var k = 1; k <= shown; k++) {
+      var waited = r.wait + (k - 1) * per;         // time from the comment until this file starts
+      var finishes = waited + per;
+      fileRows += "<tr><td>File " + k + "</td><td>" + fmt(waited) + "</td><td>" + fmt(finishes) + "</td></tr>";
+    }
+    if (nFiles > shown) fileRows += "<tr><td colspan='3'>and " + (nFiles - shown) + " more files, same pattern</td></tr>";
+    document.getElementById("cpu-files").innerHTML = isFinite(r.wait) ? fileRows : "<tr><td colspan='3'>The queue never clears, so the file times cannot be calculated.</td></tr>";
+    document.getElementById("cpu-filesum").textContent = isFinite(r.wait)
+      ? "File 1 waits " + fmt(r.wait) + " for the work already in the queue. Each file takes " + fmt(r.s) +
+        ", and each later file waits for the ones before it. For " + nFiles + " files, the last one finishes at about " + fmt(r.total) + "."
+      : "The queue never clears at this team size, so the time from one file to the next cannot be calculated.";
+  }
+  ["cpu_users", "cpu_prs", "cpu_hours", "cpu_busiest", "cpu_pollS", "cpu_lines", "cpu_avgLines", "cpu_files", "cpu_cap"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener("input", render);
+  });
+  document.getElementById("cpu-calc").addEventListener("click", render);
+  render();
+})();
+</script>
+
 <script>
 // Capacity calculator. Numbers come from gpu_report_20261011_232130.xlsx.
 var CAP_DEFAULTS = {
